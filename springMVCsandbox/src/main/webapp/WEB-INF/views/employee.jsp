@@ -50,11 +50,21 @@
 		</tr>
 		<tr>
 			<td><form:label path="jobId"><spring:message code="label.jobid" /></form:label></td>
-			<td><form:input path="jobId" /></td>
+			<td><form:select path="jobId">
+				<form:option value="0">Select</form:option>
+				<c:forEach items="${jobList }" var="job">
+					<form:option value="${job.jobId }">${job.jobTitle }</form:option>	
+				</c:forEach>
+			</form:select></td>
 		</tr>
 		<tr>
 			<td><form:label path="departmentId"><spring:message code="label.departmentid" /></form:label></td>
-			<td><form:input path="departmentId" /></td>
+			<td><form:select path="departmentId">
+				<form:option value="0">Select</form:option>
+				<c:forEach items="${departmentList }" var="department">
+					<form:option value="${department.departmentId }">${department.departmentName }</form:option>	
+				</c:forEach>
+			</form:select></td>
 		</tr>
 		<tr>
         <td colspan="2">
