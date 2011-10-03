@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 29, 2011 4:44:17 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.cab1729.mvc.domain.Department" table="DEPARTMENTS">
+        <id name="departmentId" type="long">
+            <column name="DEPARTMENT_ID" />
+            <generator class="assigned" />
+        </id>
+        <!-- 
+        <property name="serialVersionUID" type="long" access="field">
+            <column name="SERIALVERSIONUID" />
+        </property>
+         -->
+        <property name="departmentName" type="java.lang.String">
+            <column name="DEPARTMENT_NAME" />
+        </property>
+        <property name="managerId" type="java.math.BigDecimal">
+            <column name="MANAGER_ID" />
+        </property>
+    </class>
+</hibernate-mapping>
