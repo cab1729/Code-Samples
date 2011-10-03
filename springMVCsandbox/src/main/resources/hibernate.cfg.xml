@@ -4,5 +4,7 @@
 <hibernate-configuration>
  <session-factory name="">
   <mapping resource="org/cab1729/mvc/domain/Employee.hbm.xml"/>
+  <mapping resource="org/cab1729/mvc/domain/Department.hbm.xml"/>
+  <mapping resource="org/cab1729/mvc/domain/Job.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>
