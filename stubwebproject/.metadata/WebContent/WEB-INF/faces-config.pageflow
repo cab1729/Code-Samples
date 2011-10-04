@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13037554376020" configfile="/stubwebproject/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="GetEmpInfoView" id="pf13050558575930" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" outlinks="pf13050558575931" inlinks="pf13050558575931" path="/GetEmpInfoView.jsp"/>
+  <links id="pf13050558575931" target="pf13050558575930" source="pf13050558575930" fromaction="#{getEmpInfoController.getEmail}"/>
+</pageflow:Pageflow>

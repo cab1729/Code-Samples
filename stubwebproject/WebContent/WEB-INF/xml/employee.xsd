@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/employee" xmlns:tns="http://www.example.org/employee" elementFormDefault="qualified">
+    <complexType name="employee">
+    	<sequence>
+    		<element name="email" type="string" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    	<attribute name="id" type="int"></attribute>
+    </complexType>
+
+    <element name="employeeinfo" type="tns:employee"></element>
+</schema>
