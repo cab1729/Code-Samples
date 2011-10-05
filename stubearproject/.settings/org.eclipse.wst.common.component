@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="stubearproject">
+        <wb-resource deploy-path="/" source-path="/EarContent"/>
+        <dependent-module deploy-path="/" handle="module:/resource/stubwebproject/stubwebproject">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/resource/stubejbproject/stubejbproject">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="stubejbprojectClient.jar" deploy-path="/" handle="module:/resource/stubejbprojectClient/stubejbprojectClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="stubjpaproject.jar" deploy-path="/" handle="module:/resource/stubjpaproject/stubjpaproject">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
