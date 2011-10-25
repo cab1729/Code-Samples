@@ -141,10 +141,10 @@
 		</dependency>
 		<dependency>
 			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc14</artifactId>
-			<version>10.2.0.4.0</version>
+			<artifactId>ojdbc5</artifactId>
+			<version>11.2.0</version>
 			<scope>system</scope>
-			<systemPath>C:\oraclexe\app\oracle\product\10.2.0\server\jdbc\lib\ojdbc14.jar</systemPath>
+			<systemPath>C:\oraclexe\app\oracle\product\11.2.0\server\jdbc\lib\ojdbc5.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
