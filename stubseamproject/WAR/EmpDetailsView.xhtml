@@ -1,0 +1,103 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Emp details view Details</f:facet>
+
+        <s:decorate id="employeeId" template="layout/display.xhtml">
+            <ui:define name="label">Employee id</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.employeeId}"/>
+        </s:decorate>
+        <s:decorate id="jobId" template="layout/display.xhtml">
+            <ui:define name="label">Job id</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.jobId}"/>
+        </s:decorate>
+        <s:decorate id="managerId" template="layout/display.xhtml">
+            <ui:define name="label">Manager id</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.managerId}"/>
+        </s:decorate>
+        <s:decorate id="departmentId" template="layout/display.xhtml">
+            <ui:define name="label">Department id</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.departmentId}"/>
+        </s:decorate>
+        <s:decorate id="locationId" template="layout/display.xhtml">
+            <ui:define name="label">Location id</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.locationId}"/>
+        </s:decorate>
+        <s:decorate id="countryId" template="layout/display.xhtml">
+            <ui:define name="label">Country id</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.countryId}"/>
+        </s:decorate>
+        <s:decorate id="firstName" template="layout/display.xhtml">
+            <ui:define name="label">First name</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.firstName}"/>
+        </s:decorate>
+        <s:decorate id="lastName" template="layout/display.xhtml">
+            <ui:define name="label">Last name</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.lastName}"/>
+        </s:decorate>
+        <s:decorate id="salary" template="layout/display.xhtml">
+            <ui:define name="label">Salary</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.salary}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+        <s:decorate id="commissionPct" template="layout/display.xhtml">
+            <ui:define name="label">Commission pct</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.commissionPct}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+        <s:decorate id="departmentName" template="layout/display.xhtml">
+            <ui:define name="label">Department name</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.departmentName}"/>
+        </s:decorate>
+        <s:decorate id="jobTitle" template="layout/display.xhtml">
+            <ui:define name="label">Job title</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.jobTitle}"/>
+        </s:decorate>
+        <s:decorate id="city" template="layout/display.xhtml">
+            <ui:define name="label">City</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.city}"/>
+        </s:decorate>
+        <s:decorate id="stateProvince" template="layout/display.xhtml">
+            <ui:define name="label">State province</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.stateProvince}"/>
+        </s:decorate>
+        <s:decorate id="countryName" template="layout/display.xhtml">
+            <ui:define name="label">Country name</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.countryName}"/>
+        </s:decorate>
+        <s:decorate id="regionName" template="layout/display.xhtml">
+            <ui:define name="label">Region name</ui:define>
+            <h:outputText value="#{empDetailsViewHome.instance.id.regionName}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/EmpDetailsViewEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty empDetailsViewFrom ? 'EmpDetailsViewList' : empDetailsViewFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+</ui:define>
+
+</ui:composition>

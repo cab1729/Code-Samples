@@ -1,0 +1,95 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Regions Details</f:facet>
+
+        <s:decorate id="regionId" template="layout/display.xhtml">
+            <ui:define name="label">Region id</ui:define>
+            <h:outputText value="#{regionsHome.instance.regionId}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="regionName" template="layout/display.xhtml">
+            <ui:define name="label">Region name</ui:define>
+            <h:outputText value="#{regionsHome.instance.regionName}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/RegionsEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty regionsFrom ? 'RegionsList' : regionsFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Countrieses</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="countriesesChildren">
+
+        <h:outputText value="There are no countrieses associated with this regions."
+                   rendered="#{empty regionsHome.countrieses}"/>
+
+        <rich:dataTable value="#{regionsHome.countrieses}"
+                       var="_countries"
+                  rendered="#{not empty regionsHome.countrieses}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="countriesesTable">
+            <rich:column sortBy="#{_countries.countryId}">
+                <f:facet name="header">Country id</f:facet>
+                <h:outputText value="#{_countries.countryId}"/>
+            </rich:column>
+            <rich:column sortBy="#{_countries.countryName}">
+                <f:facet name="header">Country name</f:facet>
+                <h:outputText value="#{_countries.countryName}"/>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectcountries"
+                     value="Select"
+                      view="/Countries.xhtml">
+                    <f:param name="countriesCountryId"
+                            value="#{_countries.countryId}"/>
+                    <f:param name="countriesFrom" value="Regions"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add countries"
+                view="/CountriesEdit.xhtml">
+            <f:param name="regionsRegionId"
+                    value="#{regionsHome.instance.regionId}"/>
+            <f:param name="countriesFrom" value="Regions"/>
+        </s:button>
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

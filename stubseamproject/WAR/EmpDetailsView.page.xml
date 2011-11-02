@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd">
+
+   <param name="empDetailsViewFrom"/>
+   <param name="empDetailsViewEmployeeId" value="#{empDetailsViewHome.empDetailsViewId.employeeId}"/>
+   <param name="empDetailsViewJobId" value="#{empDetailsViewHome.empDetailsViewId.jobId}"/>
+   <param name="empDetailsViewManagerId" value="#{empDetailsViewHome.empDetailsViewId.managerId}"/>
+   <param name="empDetailsViewDepartmentId" value="#{empDetailsViewHome.empDetailsViewId.departmentId}"/>
+   <param name="empDetailsViewLocationId" value="#{empDetailsViewHome.empDetailsViewId.locationId}"/>
+   <param name="empDetailsViewCountryId" value="#{empDetailsViewHome.empDetailsViewId.countryId}"/>
+   <param name="empDetailsViewFirstName" value="#{empDetailsViewHome.empDetailsViewId.firstName}"/>
+   <param name="empDetailsViewLastName" value="#{empDetailsViewHome.empDetailsViewId.lastName}"/>
+   <param name="empDetailsViewSalary" value="#{empDetailsViewHome.empDetailsViewId.salary}"/>
+   <param name="empDetailsViewCommissionPct" value="#{empDetailsViewHome.empDetailsViewId.commissionPct}"/>
+   <param name="empDetailsViewDepartmentName" value="#{empDetailsViewHome.empDetailsViewId.departmentName}"/>
+   <param name="empDetailsViewJobTitle" value="#{empDetailsViewHome.empDetailsViewId.jobTitle}"/>
+   <param name="empDetailsViewCity" value="#{empDetailsViewHome.empDetailsViewId.city}"/>
+   <param name="empDetailsViewStateProvince" value="#{empDetailsViewHome.empDetailsViewId.stateProvince}"/>
+   <param name="empDetailsViewCountryName" value="#{empDetailsViewHome.empDetailsViewId.countryName}"/>
+   <param name="empDetailsViewRegionName" value="#{empDetailsViewHome.empDetailsViewId.regionName}"/>
+
+
+</page>

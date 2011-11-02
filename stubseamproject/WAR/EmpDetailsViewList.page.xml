@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns="http://jboss.com/products/seam/pages"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.2.xsd">
+
+   <param name="firstResult" value="#{empDetailsViewList.firstResult}"/>
+   <param name="sort" value="#{empDetailsViewList.orderColumn}"/>
+   <param name="dir" value="#{empDetailsViewList.orderDirection}"/>
+   <param name="logic" value="#{empDetailsViewList.restrictionLogicOperator}"/>
+
+   <param name="from"/>
+   <param name="jobId" value="#{empDetailsViewList.empDetailsView.id.jobId}"/>
+   <param name="countryId" value="#{empDetailsViewList.empDetailsView.id.countryId}"/>
+   <param name="firstName" value="#{empDetailsViewList.empDetailsView.id.firstName}"/>
+   <param name="lastName" value="#{empDetailsViewList.empDetailsView.id.lastName}"/>
+   <param name="departmentName" value="#{empDetailsViewList.empDetailsView.id.departmentName}"/>
+   <param name="jobTitle" value="#{empDetailsViewList.empDetailsView.id.jobTitle}"/>
+   <param name="city" value="#{empDetailsViewList.empDetailsView.id.city}"/>
+   <param name="stateProvince" value="#{empDetailsViewList.empDetailsView.id.stateProvince}"/>
+   <param name="countryName" value="#{empDetailsViewList.empDetailsView.id.countryName}"/>
+   <param name="regionName" value="#{empDetailsViewList.empDetailsView.id.regionName}"/>
+
+</page>

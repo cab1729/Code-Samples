@@ -1,0 +1,15 @@
+#Fri Aug 12 16:48:28 EDT 2011
+action.package=org.domain.stubseamproject.session
+action.sources=/stubseamproject/src/hot
+eclipse.preferences.version=1
+model.package=org.domain.stubseamproject.entity
+model.sources=/stubseamproject/src/main
+seam.project.connection.profile=Oracle
+seam.project.deployment.type=war
+seam.project.settings.version=1.1
+seam.project.web.root.folder=/stubseamproject/WAR
+seam.runtime.name=jboss-seam-2.2.2.Final
+seam.test.creating=true
+seam.test.project=stubseamproject-test
+test.package=org.domain.stubseamproject.test
+test.sources=/stubseamproject-test/test-src

@@ -1,0 +1,150 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Locations Details</f:facet>
+
+        <s:decorate id="locationId" template="layout/display.xhtml">
+            <ui:define name="label">Location id</ui:define>
+            <h:outputText value="#{locationsHome.instance.locationId}"/>
+        </s:decorate>
+
+        <s:decorate id="streetAddress" template="layout/display.xhtml">
+            <ui:define name="label">Street address</ui:define>
+            <h:outputText value="#{locationsHome.instance.streetAddress}"/>
+        </s:decorate>
+
+        <s:decorate id="postalCode" template="layout/display.xhtml">
+            <ui:define name="label">Postal code</ui:define>
+            <h:outputText value="#{locationsHome.instance.postalCode}"/>
+        </s:decorate>
+
+        <s:decorate id="city" template="layout/display.xhtml">
+            <ui:define name="label">City</ui:define>
+            <h:outputText value="#{locationsHome.instance.city}"/>
+        </s:decorate>
+
+        <s:decorate id="stateProvince" template="layout/display.xhtml">
+            <ui:define name="label">State province</ui:define>
+            <h:outputText value="#{locationsHome.instance.stateProvince}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/LocationsEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty locationsFrom ? 'LocationsList' : locationsFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Countries</h:panelGroup>
+        </f:facet>
+    <div class="association" id="countriesParent">
+
+        <h:outputText value="There is no countries associated with this locations."
+                   rendered="#{locationsHome.instance.countries == null}"/>
+
+        <rich:dataTable var="_countries"
+                   value="#{locationsHome.instance.countries}"
+                rendered="#{locationsHome.instance.countries != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="countriesTable">
+            <h:column>
+                <f:facet name="header">Country id</f:facet>
+                <h:outputText value="#{_countries.countryId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Regions region id</f:facet>
+                <h:outputText value="#{_countries.regions.regionId}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Country name</f:facet>
+                <h:outputText value="#{_countries.countryName}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewcountries"
+                     value="View"
+                      view="/Countries.xhtml">
+                    <f:param name="countriesCountryId"
+                           value="#{_countries.countryId}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Departmentses</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="departmentsesChildren">
+
+        <h:outputText value="There are no departmentses associated with this locations."
+                   rendered="#{empty locationsHome.departmentses}"/>
+
+        <rich:dataTable value="#{locationsHome.departmentses}"
+                       var="_departments"
+                  rendered="#{not empty locationsHome.departmentses}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="departmentsesTable">
+            <rich:column sortBy="#{_departments.departmentId}">
+                <f:facet name="header">Department id</f:facet>
+                <h:outputText value="#{_departments.departmentId}"/>
+            </rich:column>
+            <rich:column sortBy="#{_departments.departmentName}">
+                <f:facet name="header">Department name</f:facet>
+                <h:outputText value="#{_departments.departmentName}"/>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectdepartments"
+                     value="Select"
+                      view="/Departments.xhtml">
+                    <f:param name="departmentsDepartmentId"
+                            value="#{_departments.departmentId}"/>
+                    <f:param name="departmentsFrom" value="Locations"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add departments"
+                view="/DepartmentsEdit.xhtml">
+            <f:param name="locationsLocationId"
+                    value="#{locationsHome.instance.locationId}"/>
+            <f:param name="departmentsFrom" value="Locations"/>
+        </s:button>
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

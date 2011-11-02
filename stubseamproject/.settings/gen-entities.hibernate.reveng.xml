@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+<table-filter match-name="EMPLOYEES" match-schema="HR" match-catalog=".*"></table-filter>
+<table-filter match-name="COUNTRIES" match-schema="HR" match-catalog=".*"></table-filter>
+<table-filter match-name="DEPARTMENTS" match-schema="HR" match-catalog=".*"></table-filter>
+<table-filter match-name="EMP_DETAILS_VIEW" match-schema="HR" match-catalog=".*"></table-filter>
+<table-filter match-name="JOB_HISTORY" match-schema="HR" match-catalog=".*"></table-filter>
+<table-filter match-name="JOBS" match-schema="HR" match-catalog=".*"></table-filter>
+<table-filter match-name="LOCATIONS" match-schema="HR" match-catalog=".*"></table-filter>
+<table-filter match-name="REGIONS" match-schema="HR" match-catalog=".*"></table-filter>
+</hibernate-reverse-engineering>

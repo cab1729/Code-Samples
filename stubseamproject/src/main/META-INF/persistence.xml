@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Persistence deployment descriptor for dev profile -->
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" 
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" 
+             version="1.0">
+             
+   <persistence-unit name="stubseamproject" transaction-type="JTA">
+      <provider>org.hibernate.ejb.HibernatePersistence</provider>
+      <jta-data-source>java:/stubseamprojectDatasource</jta-data-source>
+      <properties>
+         <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+         <property name="hibernate.hbm2ddl.auto" value="validate"/>
+         <property name="hibernate.show_sql" value="true"/>
+         <property name="hibernate.format_sql" value="true"/>
+         <!-- remove to fix SQL syntax errors
+         <property name="hibernate.default_catalog" value="HR"/>
+          -->
+         <property name="hibernate.default_schema" value="HR"/>
+         <property name="jboss.entity.manager.factory.jndi.name" value="java:/stubseamprojectEntityManagerFactory"/>
+      </properties>
+   </persistence-unit>
+    
+</persistence>

@@ -1,0 +1,143 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Countries Details</f:facet>
+
+        <s:decorate id="countryId" template="layout/display.xhtml">
+            <ui:define name="label">Country id</ui:define>
+            <h:outputText value="#{countriesHome.instance.countryId}"/>
+        </s:decorate>
+
+        <s:decorate id="countryName" template="layout/display.xhtml">
+            <ui:define name="label">Country name</ui:define>
+            <h:outputText value="#{countriesHome.instance.countryName}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/CountriesEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty countriesFrom ? 'CountriesList' : countriesFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Regions</h:panelGroup>
+        </f:facet>
+    <div class="association" id="regionsParent">
+
+        <h:outputText value="There is no regions associated with this countries."
+                   rendered="#{countriesHome.instance.regions == null}"/>
+
+        <rich:dataTable var="_regions"
+                   value="#{countriesHome.instance.regions}"
+                rendered="#{countriesHome.instance.regions != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="regionsTable">
+            <h:column>
+                <f:facet name="header">Region id</f:facet>
+                <h:outputText value="#{_regions.regionId}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Region name</f:facet>
+                <h:outputText value="#{_regions.regionName}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewregions"
+                     value="View"
+                      view="/Regions.xhtml">
+                    <f:param name="regionsRegionId"
+                           value="#{_regions.regionId}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Locationses</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="locationsesChildren">
+
+        <h:outputText value="There are no locationses associated with this countries."
+                   rendered="#{empty countriesHome.locationses}"/>
+
+        <rich:dataTable value="#{countriesHome.locationses}"
+                       var="_locations"
+                  rendered="#{not empty countriesHome.locationses}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="locationsesTable">
+            <rich:column sortBy="#{_locations.locationId}">
+                <f:facet name="header">Location id</f:facet>
+                <h:outputText value="#{_locations.locationId}"/>
+            </rich:column>
+            <rich:column sortBy="#{_locations.streetAddress}">
+                <f:facet name="header">Street address</f:facet>
+                <h:outputText value="#{_locations.streetAddress}"/>
+            </rich:column>
+            <rich:column sortBy="#{_locations.postalCode}">
+                <f:facet name="header">Postal code</f:facet>
+                <h:outputText value="#{_locations.postalCode}"/>
+            </rich:column>
+            <rich:column sortBy="#{_locations.city}">
+                <f:facet name="header">City</f:facet>
+                <h:outputText value="#{_locations.city}"/>
+            </rich:column>
+            <rich:column sortBy="#{_locations.stateProvince}">
+                <f:facet name="header">State province</f:facet>
+                <h:outputText value="#{_locations.stateProvince}"/>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectlocations"
+                     value="Select"
+                      view="/Locations.xhtml">
+                    <f:param name="locationsLocationId"
+                            value="#{_locations.locationId}"/>
+                    <f:param name="locationsFrom" value="Countries"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add locations"
+                view="/LocationsEdit.xhtml">
+            <f:param name="countriesCountryId"
+                    value="#{countriesHome.instance.countryId}"/>
+            <f:param name="locationsFrom" value="Countries"/>
+        </s:button>
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

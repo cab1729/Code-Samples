@@ -1,0 +1,404 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="empDetailsViewSearch" styleClass="edit">
+
+        <rich:simpleTogglePanel label="EmpDetailsView Search Filter" switchType="ajax">
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Job id</ui:define>
+                <h:inputText id="jobId" value="#{empDetailsViewList.empDetailsView.id.jobId}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Country id</ui:define>
+                <h:inputText id="countryId" value="#{empDetailsViewList.empDetailsView.id.countryId}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">First name</ui:define>
+                <h:inputText id="firstName" value="#{empDetailsViewList.empDetailsView.id.firstName}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Last name</ui:define>
+                <h:inputText id="lastName" value="#{empDetailsViewList.empDetailsView.id.lastName}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Department name</ui:define>
+                <h:inputText id="departmentName" value="#{empDetailsViewList.empDetailsView.id.departmentName}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Job title</ui:define>
+                <h:inputText id="jobTitle" value="#{empDetailsViewList.empDetailsView.id.jobTitle}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">City</ui:define>
+                <h:inputText id="city" value="#{empDetailsViewList.empDetailsView.id.city}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">State province</ui:define>
+                <h:inputText id="stateProvince" value="#{empDetailsViewList.empDetailsView.id.stateProvince}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Country name</ui:define>
+                <h:inputText id="countryName" value="#{empDetailsViewList.empDetailsView.id.countryName}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Region name</ui:define>
+                <h:inputText id="regionName" value="#{empDetailsViewList.empDetailsView.id.regionName}"/>
+            </s:decorate>
+
+            <s:decorate template="layout/display.xhtml">
+                <ui:define name="label">Match</ui:define>
+                <h:selectOneRadio id="logic" value="#{empDetailsViewList.restrictionLogicOperator}" styleClass="radio">
+                    <f:selectItem itemLabel="All" itemValue="and"/>
+                    <f:selectItem itemLabel="Any" itemValue="or"/>
+                </h:selectOneRadio>
+            </s:decorate>
+
+        </rich:simpleTogglePanel>
+
+        <div class="actionButtons">
+            <h:commandButton id="search" value="Search" action="/EmpDetailsViewList.xhtml"/>
+            <s:button id="reset" value="Reset" includePageParams="false"/>
+        </div>
+
+    </h:form>
+
+    <rich:panel>
+        <f:facet name="header">EmpDetailsView Search Results (#{empty empDetailsViewList.resultList ? 0 : (empDetailsViewList.paginated ? empDetailsViewList.resultCount : empDetailsViewList.resultList.size)})</f:facet>
+    <div class="results" id="empDetailsViewList">
+
+    <h:outputText value="The empDetailsView search returned no results."
+               rendered="#{empty empDetailsViewList.resultList}"/>
+
+    <rich:dataTable id="empDetailsViewList"
+                var="_empDetailsView"
+              value="#{empDetailsViewList.resultList}"
+           rendered="#{not empty empDetailsViewList.resultList}">
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="Employee id"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.employeeId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.employeeId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="Job id"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.jobId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.jobId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="Manager id"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.managerId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.managerId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="Department id"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.departmentId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.departmentId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="Location id"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.locationId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.locationId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="Country id"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.countryId"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.countryId}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="First name"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.firstName"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.firstName}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="Last name"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.lastName"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.lastName}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="Salary"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.salary"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.salary}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="Commission pct"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.commissionPct"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.commissionPct}">
+                <f:convertNumber/>
+            </h:outputText>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="Department name"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.departmentName"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.departmentName}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="Job title"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.jobTitle"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.jobTitle}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="City"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.city"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.city}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="State province"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.stateProvince"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.stateProvince}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="Country name"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.countryName"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.countryName}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <ui:include src="layout/sort.xhtml">
+                    <ui:param name="entityList" value="#{empDetailsViewList}"/>
+                    <ui:param name="propertyLabel" value="Region name"/>
+                    <ui:param name="propertyPath" value="empDetailsView.id.regionName"/>
+                </ui:include>
+            </f:facet>
+            <h:outputText value="#{_empDetailsView.id.regionName}"/>
+        </h:column>
+        <rich:column styleClass="action">
+            <f:facet name="header">Action</f:facet>
+            <s:link view="/#{empty from ? 'EmpDetailsView' : from}.xhtml"
+                   value="#{empty from ? 'View' : 'Select'}"
+             propagation="#{empty from ? 'none' : 'default'}"
+                      id="empDetailsViewViewId">
+                <f:param name="empDetailsViewEmployeeId"
+                        value="#{_empDetailsView.id.employeeId}"/>
+                <f:param name="empDetailsViewJobId"
+                        value="#{_empDetailsView.id.jobId}"/>
+                <f:param name="empDetailsViewManagerId"
+                        value="#{_empDetailsView.id.managerId}"/>
+                <f:param name="empDetailsViewDepartmentId"
+                        value="#{_empDetailsView.id.departmentId}"/>
+                <f:param name="empDetailsViewLocationId"
+                        value="#{_empDetailsView.id.locationId}"/>
+                <f:param name="empDetailsViewCountryId"
+                        value="#{_empDetailsView.id.countryId}"/>
+                <f:param name="empDetailsViewFirstName"
+                        value="#{_empDetailsView.id.firstName}"/>
+                <f:param name="empDetailsViewLastName"
+                        value="#{_empDetailsView.id.lastName}"/>
+                <f:param name="empDetailsViewSalary"
+                        value="#{_empDetailsView.id.salary}"/>
+                <f:param name="empDetailsViewCommissionPct"
+                        value="#{_empDetailsView.id.commissionPct}"/>
+                <f:param name="empDetailsViewDepartmentName"
+                        value="#{_empDetailsView.id.departmentName}"/>
+                <f:param name="empDetailsViewJobTitle"
+                        value="#{_empDetailsView.id.jobTitle}"/>
+                <f:param name="empDetailsViewCity"
+                        value="#{_empDetailsView.id.city}"/>
+                <f:param name="empDetailsViewStateProvince"
+                        value="#{_empDetailsView.id.stateProvince}"/>
+                <f:param name="empDetailsViewCountryName"
+                        value="#{_empDetailsView.id.countryName}"/>
+                <f:param name="empDetailsViewRegionName"
+                        value="#{_empDetailsView.id.regionName}"/>
+            </s:link>
+            #{' '}
+            <s:link view="/EmpDetailsViewEdit.xhtml"
+                   value="Edit"
+             propagation="none"
+                      id="empDetailsViewEdit"
+                rendered="#{empty from}">
+                <f:param name="empDetailsViewEmployeeId"
+                        value="#{_empDetailsView.id.employeeId}"/>
+                <f:param name="empDetailsViewJobId"
+                        value="#{_empDetailsView.id.jobId}"/>
+                <f:param name="empDetailsViewManagerId"
+                        value="#{_empDetailsView.id.managerId}"/>
+                <f:param name="empDetailsViewDepartmentId"
+                        value="#{_empDetailsView.id.departmentId}"/>
+                <f:param name="empDetailsViewLocationId"
+                        value="#{_empDetailsView.id.locationId}"/>
+                <f:param name="empDetailsViewCountryId"
+                        value="#{_empDetailsView.id.countryId}"/>
+                <f:param name="empDetailsViewFirstName"
+                        value="#{_empDetailsView.id.firstName}"/>
+                <f:param name="empDetailsViewLastName"
+                        value="#{_empDetailsView.id.lastName}"/>
+                <f:param name="empDetailsViewSalary"
+                        value="#{_empDetailsView.id.salary}"/>
+                <f:param name="empDetailsViewCommissionPct"
+                        value="#{_empDetailsView.id.commissionPct}"/>
+                <f:param name="empDetailsViewDepartmentName"
+                        value="#{_empDetailsView.id.departmentName}"/>
+                <f:param name="empDetailsViewJobTitle"
+                        value="#{_empDetailsView.id.jobTitle}"/>
+                <f:param name="empDetailsViewCity"
+                        value="#{_empDetailsView.id.city}"/>
+                <f:param name="empDetailsViewStateProvince"
+                        value="#{_empDetailsView.id.stateProvince}"/>
+                <f:param name="empDetailsViewCountryName"
+                        value="#{_empDetailsView.id.countryName}"/>
+                <f:param name="empDetailsViewRegionName"
+                        value="#{_empDetailsView.id.regionName}"/>
+            </s:link>
+        </rich:column>
+    </rich:dataTable>
+
+    </div>
+    </rich:panel>
+
+    <div class="tableControl">
+
+        <s:link view="/EmpDetailsViewList.xhtml"
+            rendered="#{empDetailsViewList.previousExists}"
+               value="#{messages.left}#{messages.left} First Page"
+                  id="firstPage">
+          <f:param name="firstResult" value="0"/>
+        </s:link>
+
+        <s:link view="/EmpDetailsViewList.xhtml"
+            rendered="#{empDetailsViewList.previousExists}"
+               value="#{messages.left} Previous Page"
+                  id="previousPage">
+            <f:param name="firstResult"
+                    value="#{empDetailsViewList.previousFirstResult}"/>
+        </s:link>
+
+        <s:link view="/EmpDetailsViewList.xhtml"
+            rendered="#{empDetailsViewList.nextExists}"
+               value="Next Page #{messages.right}"
+                  id="nextPage">
+            <f:param name="firstResult"
+                    value="#{empDetailsViewList.nextFirstResult}"/>
+        </s:link>
+
+        <s:link view="/EmpDetailsViewList.xhtml"
+            rendered="#{empDetailsViewList.nextExists}"
+               value="Last Page #{messages.right}#{messages.right}"
+                  id="lastPage">
+            <f:param name="firstResult"
+                    value="#{empDetailsViewList.lastFirstResult}"/>
+        </s:link>
+
+    </div>
+
+    <s:div styleClass="actionButtons" rendered="#{empty from}">
+        <s:button view="/EmpDetailsViewEdit.xhtml"
+                    id="create"
+           propagation="none"
+                 value="Create empDetailsView">
+            <f:param name="empDetailsViewEmployeeId"/>
+            <f:param name="empDetailsViewJobId"/>
+            <f:param name="empDetailsViewManagerId"/>
+            <f:param name="empDetailsViewDepartmentId"/>
+            <f:param name="empDetailsViewLocationId"/>
+            <f:param name="empDetailsViewCountryId"/>
+            <f:param name="empDetailsViewFirstName"/>
+            <f:param name="empDetailsViewLastName"/>
+            <f:param name="empDetailsViewSalary"/>
+            <f:param name="empDetailsViewCommissionPct"/>
+            <f:param name="empDetailsViewDepartmentName"/>
+            <f:param name="empDetailsViewJobTitle"/>
+            <f:param name="empDetailsViewCity"/>
+            <f:param name="empDetailsViewStateProvince"/>
+            <f:param name="empDetailsViewCountryName"/>
+            <f:param name="empDetailsViewRegionName"/>
+        </s:button>
+    </s:div>
+
+</ui:define>
+
+</ui:composition>

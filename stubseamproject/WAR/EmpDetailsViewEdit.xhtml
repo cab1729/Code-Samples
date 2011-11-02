@@ -1,0 +1,233 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="empDetailsView" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{empDetailsViewHome.managed ? 'Edit' : 'Add'} Emp details view</f:facet>
+
+
+            <s:decorate id="employeeIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Employee id</ui:define>
+                <h:inputText id="employeeId"
+                       required="true"
+                       disabled="#{empDetailsViewHome.managed}"
+                          value="#{empDetailsViewHome.instance.id.employeeId}">
+                    <a:support event="onblur" reRender="employeeIdField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="jobIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Job id</ui:define>
+                <h:inputText id="jobId"
+                       disabled="#{empDetailsViewHome.managed}"
+                      required="true"
+                          size="10"
+                     maxlength="10"
+                         value="#{empDetailsViewHome.instance.id.jobId}">
+                    <a:support event="onblur" reRender="jobIdField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="managerIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Manager id</ui:define>
+                <h:inputText id="managerId"
+                       disabled="#{empDetailsViewHome.managed}"
+                          value="#{empDetailsViewHome.instance.id.managerId}">
+                    <a:support event="onblur" reRender="managerIdField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="departmentIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Department id</ui:define>
+                <h:inputText id="departmentId"
+                       disabled="#{empDetailsViewHome.managed}"
+                          value="#{empDetailsViewHome.instance.id.departmentId}">
+                    <a:support event="onblur" reRender="departmentIdField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="locationIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Location id</ui:define>
+                <h:inputText id="locationId"
+                       disabled="#{empDetailsViewHome.managed}"
+                          value="#{empDetailsViewHome.instance.id.locationId}">
+                    <a:support event="onblur" reRender="locationIdField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="countryIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Country id</ui:define>
+                <h:inputText id="countryId"
+                       disabled="#{empDetailsViewHome.managed}"
+                          size="2"
+                     maxlength="2"
+                         value="#{empDetailsViewHome.instance.id.countryId}">
+                    <a:support event="onblur" reRender="countryIdField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="firstNameField" template="layout/edit.xhtml">
+                <ui:define name="label">First name</ui:define>
+                <h:inputText id="firstName"
+                       disabled="#{empDetailsViewHome.managed}"
+                          size="20"
+                     maxlength="20"
+                         value="#{empDetailsViewHome.instance.id.firstName}">
+                    <a:support event="onblur" reRender="firstNameField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="lastNameField" template="layout/edit.xhtml">
+                <ui:define name="label">Last name</ui:define>
+                <h:inputText id="lastName"
+                       disabled="#{empDetailsViewHome.managed}"
+                      required="true"
+                          size="25"
+                     maxlength="25"
+                         value="#{empDetailsViewHome.instance.id.lastName}">
+                    <a:support event="onblur" reRender="lastNameField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="salaryField" template="layout/edit.xhtml">
+                <ui:define name="label">Salary</ui:define>
+                <h:inputText id="salary"
+                          value="#{empDetailsViewHome.instance.id.salary}"
+                           size="15">
+                    <a:support event="onblur" reRender="salaryField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="commissionPctField" template="layout/edit.xhtml">
+                <ui:define name="label">Commission pct</ui:define>
+                <h:inputText id="commissionPct"
+                          value="#{empDetailsViewHome.instance.id.commissionPct}"
+                           size="9">
+                    <a:support event="onblur" reRender="commissionPctField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="departmentNameField" template="layout/edit.xhtml">
+                <ui:define name="label">Department name</ui:define>
+                <h:inputText id="departmentName"
+                       disabled="#{empDetailsViewHome.managed}"
+                      required="true"
+                          size="30"
+                     maxlength="30"
+                         value="#{empDetailsViewHome.instance.id.departmentName}">
+                    <a:support event="onblur" reRender="departmentNameField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="jobTitleField" template="layout/edit.xhtml">
+                <ui:define name="label">Job title</ui:define>
+                <h:inputText id="jobTitle"
+                       disabled="#{empDetailsViewHome.managed}"
+                      required="true"
+                          size="35"
+                     maxlength="35"
+                         value="#{empDetailsViewHome.instance.id.jobTitle}">
+                    <a:support event="onblur" reRender="jobTitleField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="cityField" template="layout/edit.xhtml">
+                <ui:define name="label">City</ui:define>
+                <h:inputText id="city"
+                       disabled="#{empDetailsViewHome.managed}"
+                      required="true"
+                          size="30"
+                     maxlength="30"
+                         value="#{empDetailsViewHome.instance.id.city}">
+                    <a:support event="onblur" reRender="cityField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="stateProvinceField" template="layout/edit.xhtml">
+                <ui:define name="label">State province</ui:define>
+                <h:inputText id="stateProvince"
+                       disabled="#{empDetailsViewHome.managed}"
+                          size="25"
+                     maxlength="25"
+                         value="#{empDetailsViewHome.instance.id.stateProvince}">
+                    <a:support event="onblur" reRender="stateProvinceField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="countryNameField" template="layout/edit.xhtml">
+                <ui:define name="label">Country name</ui:define>
+                <h:inputText id="countryName"
+                       disabled="#{empDetailsViewHome.managed}"
+                          size="40"
+                     maxlength="40"
+                         value="#{empDetailsViewHome.instance.id.countryName}">
+                    <a:support event="onblur" reRender="countryNameField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="regionNameField" template="layout/edit.xhtml">
+                <ui:define name="label">Region name</ui:define>
+                <h:inputText id="regionName"
+                       disabled="#{empDetailsViewHome.managed}"
+                          size="25"
+                     maxlength="25"
+                         value="#{empDetailsViewHome.instance.id.regionName}">
+                    <a:support event="onblur" reRender="regionNameField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{empDetailsViewHome.persist}"
+                       disabled="#{!empDetailsViewHome.wired}"
+                       rendered="#{!empDetailsViewHome.managed}"/>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{empDetailsViewHome.update}"
+                       rendered="#{empDetailsViewHome.managed}"/>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{empDetailsViewHome.remove}"
+                      immediate="true"
+                       rendered="#{empDetailsViewHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/EmpDetailsView.xhtml"
+                rendered="#{empDetailsViewHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty empDetailsViewFrom ? 'EmpDetailsViewList' : empDetailsViewFrom}.xhtml"
+                rendered="#{!empDetailsViewHome.managed}"/>
+
+        </div>
+    </h:form>
+
+</ui:define>
+
+</ui:composition>

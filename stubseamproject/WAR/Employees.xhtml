@@ -1,0 +1,429 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <rich:panel>
+        <f:facet name="header">Employees Details</f:facet>
+
+        <s:decorate id="employeeId" template="layout/display.xhtml">
+            <ui:define name="label">Employee id</ui:define>
+            <h:outputText value="#{employeesHome.instance.employeeId}"/>
+        </s:decorate>
+
+        <s:decorate id="firstName" template="layout/display.xhtml">
+            <ui:define name="label">First name</ui:define>
+            <h:outputText value="#{employeesHome.instance.firstName}"/>
+        </s:decorate>
+
+        <s:decorate id="lastName" template="layout/display.xhtml">
+            <ui:define name="label">Last name</ui:define>
+            <h:outputText value="#{employeesHome.instance.lastName}"/>
+        </s:decorate>
+
+        <s:decorate id="email" template="layout/display.xhtml">
+            <ui:define name="label">Email</ui:define>
+            <h:outputText value="#{employeesHome.instance.email}"/>
+        </s:decorate>
+
+        <s:decorate id="phoneNumber" template="layout/display.xhtml">
+            <ui:define name="label">Phone number</ui:define>
+            <h:outputText value="#{employeesHome.instance.phoneNumber}"/>
+        </s:decorate>
+
+        <s:decorate id="hireDate" template="layout/display.xhtml">
+            <ui:define name="label">Hire date</ui:define>
+            <h:outputText value="#{employeesHome.instance.hireDate}">
+                <s:convertDateTime type="date" dateStyle="short"/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="salary" template="layout/display.xhtml">
+            <ui:define name="label">Salary</ui:define>
+            <h:outputText value="#{employeesHome.instance.salary}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <s:decorate id="commissionPct" template="layout/display.xhtml">
+            <ui:define name="label">Commission pct</ui:define>
+            <h:outputText value="#{employeesHome.instance.commissionPct}">
+                <f:convertNumber/>
+            </h:outputText>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+    <div class="actionButtons">
+
+        <s:button view="/EmployeesEdit.xhtml"
+                    id="edit"
+                 value="Edit"/>
+
+        <s:button view="/#{empty employeesFrom ? 'EmployeesList' : employeesFrom}.xhtml"
+                    id="done"
+                 value="Done"/>
+
+    </div>
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Job Desc</h:panelGroup>
+        </f:facet>
+    <div class="association" id="jobsParent">
+
+        <h:outputText value="There is no jobs associated with this employee."
+                   rendered="#{employeesHome.instance.jobs == null}"/>
+
+        <rich:dataTable var="_jobs"
+                   value="#{employeesHome.instance.jobs}"
+                rendered="#{employeesHome.instance.jobs != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="jobsTable">
+            <h:column>
+                <f:facet name="header">Job id</f:facet>
+                <h:outputText value="#{_jobs.jobId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Job title</f:facet>
+                <h:outputText value="#{_jobs.jobTitle}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Min salary</f:facet>
+                <h:outputText value="#{_jobs.minSalary}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Max salary</f:facet>
+                <h:outputText value="#{_jobs.maxSalary}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewjobs"
+                     value="View"
+                      view="/Jobs.xhtml">
+                    <f:param name="jobsJobId"
+                           value="#{_jobs.jobId}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Department</h:panelGroup>
+        </f:facet>
+    <div class="association" id="departmentsParent">
+
+        <h:outputText value="There is no departments associated with this employee."
+                   rendered="#{employeesHome.instance.departments == null}"/>
+
+        <rich:dataTable var="_departments"
+                   value="#{employeesHome.instance.departments}"
+                rendered="#{employeesHome.instance.departments != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="departmentsTable">
+            <h:column>
+                <f:facet name="header">Department id</f:facet>
+                <h:outputText value="#{_departments.departmentId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Employees employee id</f:facet>
+                <h:outputText value="#{_departments.employees.employeeId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Locations location id</f:facet>
+                <h:outputText value="#{_departments.locations.locationId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Department name</f:facet>
+                <h:outputText value="#{_departments.departmentName}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewdepartments"
+                     value="View"
+                      view="/Departments.xhtml">
+                    <f:param name="departmentsDepartmentId"
+                           value="#{_departments.departmentId}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Manager</h:panelGroup>
+        </f:facet>
+    <div class="association" id="employeesParent">
+
+        <h:outputText value="There is no employees associated with this employee."
+                   rendered="#{employeesHome.instance.employees == null}"/>
+
+        <rich:dataTable var="_employees"
+                   value="#{employeesHome.instance.employees}"
+                rendered="#{employeesHome.instance.employees != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="employeesTable">
+            <h:column>
+                <f:facet name="header">Employee id</f:facet>
+                <h:outputText value="#{_employees.employeeId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Jobs job id</f:facet>
+                <h:outputText value="#{_employees.jobs.jobId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Departments department id</f:facet>
+                <h:outputText value="#{_employees.departments.departmentId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Employees employee id</f:facet>
+                <h:outputText value="#{_employees.employees.employeeId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">First name</f:facet>
+                <h:outputText value="#{_employees.firstName}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Last name</f:facet>
+                <h:outputText value="#{_employees.lastName}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{_employees.email}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Phone number</f:facet>
+                <h:outputText value="#{_employees.phoneNumber}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Hire date</f:facet>
+                <h:outputText value="#{_employees.hireDate}">
+                    <s:convertDateTime type="date" dateStyle="short"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Salary</f:facet>
+                <h:outputText value="#{_employees.salary}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Commission pct</f:facet>
+                <h:outputText value="#{_employees.commissionPct}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewemployees"
+                     value="View"
+                      view="/Employees.xhtml">
+                    <f:param name="employeesEmployeeId"
+                           value="#{_employees.employeeId}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Employees</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="employeesesChildren">
+
+        <h:outputText value="There are no employees associated with this employee."
+                   rendered="#{empty employeesHome.employeeses}"/>
+
+        <rich:dataTable value="#{employeesHome.employeeses}"
+                       var="_employees"
+                  rendered="#{not empty employeesHome.employeeses}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="employeesesTable">
+            <rich:column sortBy="#{_employees.employeeId}">
+                <f:facet name="header">Employee id</f:facet>
+                <h:outputText value="#{_employees.employeeId}"/>
+            </rich:column>
+            <rich:column sortBy="#{_employees.firstName}">
+                <f:facet name="header">First name</f:facet>
+                <h:outputText value="#{_employees.firstName}"/>
+            </rich:column>
+            <rich:column sortBy="#{_employees.lastName}">
+                <f:facet name="header">Last name</f:facet>
+                <h:outputText value="#{_employees.lastName}"/>
+            </rich:column>
+            <rich:column sortBy="#{_employees.email}">
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{_employees.email}"/>
+            </rich:column>
+            <rich:column sortBy="#{_employees.phoneNumber}">
+                <f:facet name="header">Phone number</f:facet>
+                <h:outputText value="#{_employees.phoneNumber}"/>
+            </rich:column>
+            <rich:column sortBy="#{_employees.hireDate}">
+                <f:facet name="header">Hire date</f:facet>
+                <h:outputText value="#{_employees.hireDate}">
+                    <s:convertDateTime type="date" dateStyle="short"/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_employees.salary}">
+                <f:facet name="header">Salary</f:facet>
+                <h:outputText value="#{_employees.salary}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_employees.commissionPct}">
+                <f:facet name="header">Commission pct</f:facet>
+                <h:outputText value="#{_employees.commissionPct}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectemployees"
+                     value="Select"
+                      view="/Employees.xhtml">
+                    <f:param name="employeesEmployeeId"
+                            value="#{_employees.employeeId}"/>
+                    <f:param name="employeesFrom" value="Employees"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add employees"
+                view="/EmployeesEdit.xhtml">
+            <f:param name="employeesEmployeeId"
+                    value="#{employeesHome.instance.employeeId}"/>
+            <f:param name="employeesFrom" value="Employees"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Departments</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="departmentsesChildren">
+
+        <h:outputText value="There are no departments associated with this employee."
+                   rendered="#{empty employeesHome.departmentses}"/>
+
+        <rich:dataTable value="#{employeesHome.departmentses}"
+                       var="_departments"
+                  rendered="#{not empty employeesHome.departmentses}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="departmentsesTable">
+            <rich:column sortBy="#{_departments.departmentId}">
+                <f:facet name="header">Department id</f:facet>
+                <h:outputText value="#{_departments.departmentId}"/>
+            </rich:column>
+            <rich:column sortBy="#{_departments.departmentName}">
+                <f:facet name="header">Department name</f:facet>
+                <h:outputText value="#{_departments.departmentName}"/>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectdepartments"
+                     value="Select"
+                      view="/Departments.xhtml">
+                    <f:param name="departmentsDepartmentId"
+                            value="#{_departments.departmentId}"/>
+                    <f:param name="departmentsFrom" value="Employees"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add departments"
+                view="/DepartmentsEdit.xhtml">
+            <f:param name="employeesEmployeeId"
+                    value="#{employeesHome.instance.employeeId}"/>
+            <f:param name="departmentsFrom" value="Employees"/>
+        </s:button>
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/onetomany.gif" style="vertical-align: middle; padding-right: 4px;"/>Job history</h:panelGroup>
+        </f:facet>
+    <h:form styleClass="association" id="jobHistoriesChildren">
+
+        <h:outputText value="There are no jobHistories associated with this employee."
+                   rendered="#{empty employeesHome.jobHistories}"/>
+
+        <rich:dataTable value="#{employeesHome.jobHistories}"
+                       var="_jobHistory"
+                  rendered="#{not empty employeesHome.jobHistories}"
+                rowClasses="rvgRowOne,rvgRowTwo"
+                        id="jobHistoriesTable">
+            <rich:column sortBy="#{_jobHistory.id.employeeId}">
+                <f:facet name="header">Employee id</f:facet>
+                <h:outputText value="#{_jobHistory.id.employeeId}"/>
+            </rich:column>
+            <rich:column sortBy="#{_jobHistory.id.startDate}">
+                <f:facet name="header">Start date</f:facet>
+                <h:outputText value="#{_jobHistory.id.startDate}">
+                    <s:convertDateTime type="date" dateStyle="short"/>
+                </h:outputText>
+            </rich:column>
+            <rich:column sortBy="#{_jobHistory.endDate}">
+                <f:facet name="header">End date</f:facet>
+                <h:outputText value="#{_jobHistory.endDate}">
+                    <s:convertDateTime type="date" dateStyle="short"/>
+                </h:outputText>
+            </rich:column>
+            <h:column>
+                <f:facet name="header">Action</f:facet>
+                <s:link id="selectjobHistory"
+                     value="Select"
+                      view="/JobHistory.xhtml">
+                    <f:param name="jobHistoryEmployeeId"
+                            value="#{_jobHistory.id.employeeId}"/>
+                    <f:param name="jobHistoryStartDate"
+                            value="#{_jobHistory.id.startDate}"/>
+                    <f:param name="jobHistoryFrom" value="Employees"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </h:form>
+
+    <div class="actionButtons">
+        <s:button
+               value="Add jobHistory"
+                view="/JobHistoryEdit.xhtml">
+            <f:param name="employeesEmployeeId"
+                    value="#{employeesHome.instance.employeeId}"/>
+            <f:param name="jobHistoryFrom" value="Employees"/>
+        </s:button>
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

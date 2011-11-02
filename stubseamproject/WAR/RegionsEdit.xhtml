@@ -1,0 +1,124 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="regions" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{regionsHome.managed ? 'Edit' : 'Add'} Regions</f:facet>
+
+
+            <s:decorate id="regionIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Region id</ui:define>
+                <h:inputText id="regionId"
+                       required="true"
+                          value="#{regionsHome.instance.regionId}"
+                           size="29">
+                    <a:support event="onblur" reRender="regionIdField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <s:decorate id="regionNameField" template="layout/edit.xhtml">
+                <ui:define name="label">Region name</ui:define>
+                <h:inputText id="regionName"
+                           size="25"
+                      maxlength="25"
+                          value="#{regionsHome.instance.regionName}">
+                    <a:support event="onblur" reRender="regionNameField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{regionsHome.persist}"
+                       disabled="#{!regionsHome.wired}"
+                       rendered="#{!regionsHome.managed}"/>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{regionsHome.update}"
+                       rendered="#{regionsHome.managed}"/>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{regionsHome.remove}"
+                      immediate="true"
+                       rendered="#{regionsHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/Regions.xhtml"
+                rendered="#{regionsHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty regionsFrom ? 'RegionsList' : regionsFrom}.xhtml"
+                rendered="#{!regionsHome.managed}"/>
+
+        </div>
+    </h:form>
+
+<rich:tabPanel switchType="ajax">
+
+    <rich:tab label="Countrieses">
+        <h:form styleClass="association" id="countriesesChildren">
+
+            <h:outputText value="There are no countrieses associated with this regions."
+                       rendered="#{empty regionsHome.countrieses}"/>
+
+            <rich:dataTable value="#{regionsHome.countrieses}"
+                           var="_countries"
+                      rendered="#{not empty regionsHome.countrieses}"
+                    rowClasses="rvgRowOne,rvgRowTwo"
+                            id="countriesesTable">
+                <rich:column sortBy="#{_countries.countryId}">
+                    <f:facet name="header">Country id</f:facet>
+                    <h:outputText value="#{_countries.countryId}"/>
+                </rich:column>
+                <rich:column sortBy="#{_countries.countryName}">
+                    <f:facet name="header">Country name</f:facet>
+                    <h:outputText value="#{_countries.countryName}"/>
+                </rich:column>
+            </rich:dataTable>
+
+        </h:form>
+
+        <f:subview rendered="#{regionsHome.managed}" id="countrieses">
+        <div class="actionButtons">
+            <s:button id="addcountries"
+                   value="Add countries"
+                    view="/CountriesEdit.xhtml"
+             propagation="none">
+                 <f:param name="regionsRegionId"
+                         value="#{regionsHome.instance.regionId}"/>
+                 <f:param name="countriesFrom" value="Regions"/>
+            </s:button>
+        </div>
+        </f:subview>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

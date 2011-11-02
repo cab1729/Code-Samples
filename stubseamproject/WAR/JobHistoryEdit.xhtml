@@ -1,0 +1,245 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="jobHistory" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{jobHistoryHome.managed ? 'Edit' : 'Add'} Job history</f:facet>
+
+
+            <s:decorate id="employeeIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Employee id</ui:define>
+                <h:inputText id="employeeId"
+                       required="true"
+                       disabled="#{jobHistoryHome.managed}"
+                          value="#{jobHistoryHome.instance.id.employeeId}">
+                    <a:support event="onblur" reRender="employeeIdField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+            <s:decorate id="startDateField" template="layout/edit.xhtml">
+                <ui:define name="label">Start date</ui:define>
+                <rich:calendar id="startDate"
+                       disabled="#{jobHistoryHome.managed}"
+                       required="true"
+                          value="#{jobHistoryHome.instance.id.startDate}" datePattern="MM/dd/yyyy" />
+            </s:decorate>
+
+
+
+
+
+            <s:decorate id="endDateField" template="layout/edit.xhtml">
+                <ui:define name="label">End date</ui:define>
+                <rich:calendar id="endDate"
+                       required="true"
+                          value="#{jobHistoryHome.instance.endDate}" datePattern="MM/dd/yyyy" />
+            </s:decorate>
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{jobHistoryHome.persist}"
+                       disabled="#{!jobHistoryHome.wired}"
+                       rendered="#{!jobHistoryHome.managed}"/>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{jobHistoryHome.update}"
+                       rendered="#{jobHistoryHome.managed}"/>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{jobHistoryHome.remove}"
+                      immediate="true"
+                       rendered="#{jobHistoryHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/JobHistory.xhtml"
+                rendered="#{jobHistoryHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty jobHistoryFrom ? 'JobHistoryList' : jobHistoryFrom}.xhtml"
+                rendered="#{!jobHistoryHome.managed}"/>
+
+        </div>
+    </h:form>
+
+<rich:tabPanel switchType="ajax">
+
+    <rich:tab label="Employees *" labelClass="required">
+    <div class="association" id="employeesParent">
+
+        <h:outputText value="There is no employees associated with this jobHistory."
+                   rendered="#{jobHistoryHome.instance.employees == null}"/>
+
+        <rich:dataTable var="_employees"
+                   value="#{jobHistoryHome.instance.employees}"
+                rendered="#{jobHistoryHome.instance.employees != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="employeesTable">
+            <h:column>
+                <f:facet name="header">Employee id</f:facet>
+                <h:outputText value="#{_employees.employeeId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Jobs job id</f:facet>
+                <h:outputText value="#{_employees.jobs.jobId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Departments department id</f:facet>
+                <h:outputText value="#{_employees.departments.departmentId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Employees employee id</f:facet>
+                <h:outputText value="#{_employees.employees.employeeId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">First name</f:facet>
+                <h:outputText value="#{_employees.firstName}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Last name</f:facet>
+                <h:outputText value="#{_employees.lastName}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Email</f:facet>
+                <h:outputText value="#{_employees.email}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Phone number</f:facet>
+                <h:outputText value="#{_employees.phoneNumber}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Hire date</f:facet>
+                <h:outputText value="#{_employees.hireDate}">
+                    <s:convertDateTime type="date" dateStyle="short"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Salary</f:facet>
+                <h:outputText value="#{_employees.salary}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Commission pct</f:facet>
+                <h:outputText value="#{_employees.commissionPct}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button id="#{jobHistoryHome.instance.employees != null ? 'changeParent' : 'selectParent'}" value="#{jobHistoryHome.instance.employees != null ? 'Change' : 'Select'} employees"
+                       view="/EmployeesList.xhtml">
+                <f:param name="from" value="JobHistoryEdit"/>
+            </s:button>
+        </div>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab label="Jobs *" labelClass="required">
+    <div class="association" id="jobsParent">
+
+        <h:outputText value="There is no jobs associated with this jobHistory."
+                   rendered="#{jobHistoryHome.instance.jobs == null}"/>
+
+        <rich:dataTable var="_jobs"
+                   value="#{jobHistoryHome.instance.jobs}"
+                rendered="#{jobHistoryHome.instance.jobs != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="jobsTable">
+            <h:column>
+                <f:facet name="header">Job id</f:facet>
+                <h:outputText value="#{_jobs.jobId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Job title</f:facet>
+                <h:outputText value="#{_jobs.jobTitle}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Min salary</f:facet>
+                <h:outputText value="#{_jobs.minSalary}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Max salary</f:facet>
+                <h:outputText value="#{_jobs.maxSalary}"/>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button id="#{jobHistoryHome.instance.jobs != null ? 'changeParent' : 'selectParent'}" value="#{jobHistoryHome.instance.jobs != null ? 'Change' : 'Select'} jobs"
+                       view="/JobsList.xhtml">
+                <f:param name="from" value="JobHistoryEdit"/>
+            </s:button>
+        </div>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab label="Departments">
+    <div class="association" id="departmentsParent">
+
+        <h:outputText value="There is no departments associated with this jobHistory."
+                   rendered="#{jobHistoryHome.instance.departments == null}"/>
+
+        <rich:dataTable var="_departments"
+                   value="#{jobHistoryHome.instance.departments}"
+                rendered="#{jobHistoryHome.instance.departments != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="departmentsTable">
+            <h:column>
+                <f:facet name="header">Department id</f:facet>
+                <h:outputText value="#{_departments.departmentId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Employees employee id</f:facet>
+                <h:outputText value="#{_departments.employees.employeeId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Locations location id</f:facet>
+                <h:outputText value="#{_departments.locations.locationId}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Department name</f:facet>
+                <h:outputText value="#{_departments.departmentName}"/>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button id="#{jobHistoryHome.instance.departments != null ? 'changeParent' : 'selectParent'}" value="#{jobHistoryHome.instance.departments != null ? 'Change' : 'Select'} departments"
+                       view="/DepartmentsList.xhtml">
+                <f:param name="from" value="JobHistoryEdit"/>
+            </s:button>
+        </div>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>

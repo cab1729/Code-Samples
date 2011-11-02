@@ -1,0 +1,172 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    template="layout/template.xhtml">
+
+<ui:define name="body">
+
+    <h:form id="countries" styleClass="edit">
+
+        <rich:panel>
+            <f:facet name="header">#{countriesHome.managed ? 'Edit' : 'Add'} Countries</f:facet>
+
+
+            <s:decorate id="countryIdField" template="layout/edit.xhtml">
+                <ui:define name="label">Country id</ui:define>
+                <h:inputText id="countryId"
+                       disabled="#{countriesHome.managed}"
+                       required="true"
+                           size="2"
+                      maxlength="2"
+                          value="#{countriesHome.instance.countryId}">
+                    <a:support event="onblur" reRender="countryIdField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+
+            <s:decorate id="countryNameField" template="layout/edit.xhtml">
+                <ui:define name="label">Country name</ui:define>
+                <h:inputText id="countryName"
+                           size="40"
+                      maxlength="40"
+                          value="#{countriesHome.instance.countryName}">
+                    <a:support event="onblur" reRender="countryNameField" bypassUpdates="true" ajaxSingle="true"/>
+                </h:inputText>
+            </s:decorate>
+
+
+            <div style="clear:both">
+                <span class="required">*</span>
+                required fields
+            </div>
+
+        </rich:panel>
+
+        <div class="actionButtons">
+
+            <h:commandButton id="save"
+                          value="Save"
+                         action="#{countriesHome.persist}"
+                       disabled="#{!countriesHome.wired}"
+                       rendered="#{!countriesHome.managed}"/>
+
+            <h:commandButton id="update"
+                          value="Save"
+                         action="#{countriesHome.update}"
+                       rendered="#{countriesHome.managed}"/>
+
+            <h:commandButton id="delete"
+                          value="Delete"
+                         action="#{countriesHome.remove}"
+                      immediate="true"
+                       rendered="#{countriesHome.managed}"/>
+
+            <s:button id="cancelEdit"
+                   value="Cancel"
+             propagation="end"
+                    view="/Countries.xhtml"
+                rendered="#{countriesHome.managed}"/>
+
+            <s:button id="cancelAdd"
+                   value="Cancel"
+             propagation="end"
+                    view="/#{empty countriesFrom ? 'CountriesList' : countriesFrom}.xhtml"
+                rendered="#{!countriesHome.managed}"/>
+
+        </div>
+    </h:form>
+
+<rich:tabPanel switchType="ajax">
+
+    <rich:tab label="Regions">
+    <div class="association" id="regionsParent">
+
+        <h:outputText value="There is no regions associated with this countries."
+                   rendered="#{countriesHome.instance.regions == null}"/>
+
+        <rich:dataTable var="_regions"
+                   value="#{countriesHome.instance.regions}"
+                rendered="#{countriesHome.instance.regions != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="regionsTable">
+            <h:column>
+                <f:facet name="header">Region id</f:facet>
+                <h:outputText value="#{_regions.regionId}">
+                    <f:convertNumber/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Region name</f:facet>
+                <h:outputText value="#{_regions.regionName}"/>
+            </h:column>
+        </rich:dataTable>
+
+        <div class="actionButtons">
+            <s:button id="#{countriesHome.instance.regions != null ? 'changeParent' : 'selectParent'}" value="#{countriesHome.instance.regions != null ? 'Change' : 'Select'} regions"
+                       view="/RegionsList.xhtml">
+                <f:param name="from" value="CountriesEdit"/>
+            </s:button>
+        </div>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab label="Locationses">
+        <h:form styleClass="association" id="locationsesChildren">
+
+            <h:outputText value="There are no locationses associated with this countries."
+                       rendered="#{empty countriesHome.locationses}"/>
+
+            <rich:dataTable value="#{countriesHome.locationses}"
+                           var="_locations"
+                      rendered="#{not empty countriesHome.locationses}"
+                    rowClasses="rvgRowOne,rvgRowTwo"
+                            id="locationsesTable">
+                <rich:column sortBy="#{_locations.locationId}">
+                    <f:facet name="header">Location id</f:facet>
+                    <h:outputText value="#{_locations.locationId}"/>
+                </rich:column>
+                <rich:column sortBy="#{_locations.streetAddress}">
+                    <f:facet name="header">Street address</f:facet>
+                    <h:outputText value="#{_locations.streetAddress}"/>
+                </rich:column>
+                <rich:column sortBy="#{_locations.postalCode}">
+                    <f:facet name="header">Postal code</f:facet>
+                    <h:outputText value="#{_locations.postalCode}"/>
+                </rich:column>
+                <rich:column sortBy="#{_locations.city}">
+                    <f:facet name="header">City</f:facet>
+                    <h:outputText value="#{_locations.city}"/>
+                </rich:column>
+                <rich:column sortBy="#{_locations.stateProvince}">
+                    <f:facet name="header">State province</f:facet>
+                    <h:outputText value="#{_locations.stateProvince}"/>
+                </rich:column>
+            </rich:dataTable>
+
+        </h:form>
+
+        <f:subview rendered="#{countriesHome.managed}" id="locationses">
+        <div class="actionButtons">
+            <s:button id="addlocations"
+                   value="Add locations"
+                    view="/LocationsEdit.xhtml"
+             propagation="none">
+                 <f:param name="countriesCountryId"
+                         value="#{countriesHome.instance.countryId}"/>
+                 <f:param name="locationsFrom" value="Countries"/>
+            </s:button>
+        </div>
+        </f:subview>
+    </rich:tab>
+</rich:tabPanel>
+</ui:define>
+
+</ui:composition>
