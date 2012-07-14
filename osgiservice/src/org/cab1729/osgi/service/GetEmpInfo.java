@@ -21,5 +21,5 @@ public class GetEmpInfo implements IGetEmpInfo {
 			email = "NOT FOUND/ERROR";
 		} 
 		return email;
-
+	}
 }
