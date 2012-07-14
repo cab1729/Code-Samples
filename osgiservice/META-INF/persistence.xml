@@ -9,7 +9,7 @@
 			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
 			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
 			<property name="javax.persistence.jdbc.user" value="hr"/>
-			<property name="javax.persistence.jdbc.password" value="taxi1729"/>
+			<property name="javax.persistence.jdbc.password" value="hr"/>
 		</properties>
 	</persistence-unit>
 </persistence>
