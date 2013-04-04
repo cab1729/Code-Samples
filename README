@@ -6,4 +6,3 @@ JEE 6 to  produce  a Spring/Hibernate type application.  The component projects 
   JSON and plain text.
 - JPA Entity bean (database: Oracle 11g)
 
-(For additional code samples see gists: https://gist.github.com/cab1729)
