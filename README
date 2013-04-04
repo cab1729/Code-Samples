@@ -5,3 +5,5 @@ JEE 6 to  produce  a Spring/Hibernate type application.  The component projects 
 - Web application with servlet, RESTful service  and JSF 2.0 interfaces. REST service returns info as XML (using JAXB), 
   JSON and plain text.
 - JPA Entity bean (database: Oracle 11g)
+
+(For additional code samples see gists: https://gist.github.com/cab1729)
